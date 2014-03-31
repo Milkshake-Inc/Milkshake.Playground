@@ -23,7 +23,7 @@
     <option directives="" />
     <option flashStrict="False" />
     <option noInlineOnDebug="False" />
-    <option mainClass="Milkshake.Playground.Main" />
+    <option mainClass="Milkshake.Playground" />
     <option enabledebug="True" />
     <option additional="" />
   </build>
