@@ -1,6 +1,6 @@
-package Milkshake;
+package ;
 
-import Milkshake.Milkshake;
+import milkshake.Milkshake;
 
 @:expose
 class Playground
@@ -8,14 +8,14 @@ class Playground
 	function new()
 	{
 		#if js
-		new Milkshake().boot(289, 510);
+		new Milkshake().boot(500, 500);
 		#end
 	}
 	
 	public static function main()
 	{
 		#if cs
-		new Milkshake().boot(289, 510);
+		new Milkshake().boot(500, 500);
 		#end
 	}
 }
