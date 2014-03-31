@@ -1,4 +1,4 @@
--main Milk
--cp src/
--cp src/lib/
--js js/game.js
+-main Playground
+-cp ../src/
+-cp ../libs/Milkshake/src
+-js ../bin/js/game.js

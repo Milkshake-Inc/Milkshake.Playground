@@ -1,5 +1,7 @@
 package Milkshake;
 
+import Milkshake.Milkshake;
+
 @:expose
 class Playground
 {
