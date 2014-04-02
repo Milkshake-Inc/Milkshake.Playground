@@ -1,22 +1,19 @@
 package ;
 
-import milkshake.Milkshake;
+import milkshake.game.MilkshakeGame;
+import milkshake.game.scene.Scene;
 import milkshake.core.GameObject;
 import milkshake.core.Sprite;
-import pixi.Stage;
 
-class PlaygroundGame extends Milkshake
+class PlaygroundGame extends MilkshakeGame
 {
 	var bunny:Sprite;
 	
 	public function new() 
 	{
-		super();		
-	}
-	
-	override public function setStage(stage:Stage):Void 
-	{
-		super.setStage(stage);
+		super();
+		
+		var scene:Scene = new Scene();
 		
 		var gameObject:GameObject = new GameObject();
 		bunny = new Sprite("bunny.png");
@@ -27,8 +24,11 @@ class PlaygroundGame extends Milkshake
 		bunny.y = 250;
 		gameObject.addNode(bunny);
 		
-		stage.addChild(gameObject.displayObject);
+		scene.addNode(gameObject);
+		
+		sceneManager.addScene(scene);
 	}
+	
 	
 	override public function update(delta:Float):Void 
 	{
