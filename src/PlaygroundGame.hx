@@ -26,7 +26,7 @@ class PlaygroundGame extends MilkshakeGame
 		
 		scene.addNode(gameObject);
 		
-		sceneManager.addScene(scene);
+		sceneManager.addScene("defaultScene", scene);
 	}
 	
 	

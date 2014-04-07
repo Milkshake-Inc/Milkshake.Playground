@@ -2,13 +2,13 @@
 <project version="2">
   <!-- Output SWF options -->
   <output>
-    <movie outputType="Application" />
+    <movie outputType="CustomBuild" />
     <movie input="" />
     <movie path="bin\Playground.swf" />
     <movie fps="30" />
     <movie width="800" />
     <movie height="600" />
-    <movie version="0" />
+    <movie version="1" />
     <movie minorVersion="0" />
     <movie platform="JavaScript" />
     <movie background="#FFFFFF" />
@@ -16,15 +16,17 @@
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
     <class path="src" />
-    <class path="libs" />
+    <class path="libs\Milkshake\libs" />
+    <class path="libs\Milkshake\src" />
+    <class path="libs\Milkshake.Game\src" />
   </classpaths>
   <!-- Build options -->
   <build>
     <option directives="" />
     <option flashStrict="False" />
     <option noInlineOnDebug="False" />
-    <option mainClass="Milkshake.Playground" />
-    <option enabledebug="True" />
+    <option mainClass="Playground" />
+    <option enabledebug="False" />
     <option additional="" />
   </build>
   <!-- haxelib libraries -->
@@ -40,7 +42,7 @@
     <hidden path="obj" />
   </hiddenPaths>
   <!-- Executed before build -->
-  <preBuildCommand />
+  <preBuildCommand>$(CompilerPath)\haxe.exe $(ProjectDir)\build\build_javascript.hxml</preBuildCommand>
   <!-- Executed after build -->
   <postBuildCommand alwaysRun="False" />
   <!-- Other project options -->
