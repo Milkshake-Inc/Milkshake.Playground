@@ -19,6 +19,6 @@ class Playground
 	
 	public static function boot()
 	{
-		new PlaygroundGame().boot(1280, 720);
+		new PlaygroundGame().boot(Globals.SCREEN_HEIGHT, Globals.SCREEN_WIDTH);
 	}
 }

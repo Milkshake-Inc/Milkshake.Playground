@@ -1,6 +1,6 @@
 package network.packets;
 
-typedef CreatePlayer = {
+typedef Player = {
 	id: String,
 	x : String,
 	y : String

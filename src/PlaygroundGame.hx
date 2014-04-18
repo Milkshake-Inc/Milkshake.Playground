@@ -1,10 +1,9 @@
 package ;
 
-import milkshake.game.scene.SceneManager;
-import minigame.MinigameManager;
 import milkshake.game.MilkshakeGame;
 import network.NetworkManager;
-import pixi.Stage;
+import scenes.roomlist.RoomListScene;
+import scenes.StartMenuScene;
 
 class PlaygroundGame extends MilkshakeGame
 {
@@ -13,15 +12,12 @@ class PlaygroundGame extends MilkshakeGame
 	public function new()
 	{
 		super();
-	}
-	
-	override public function setStage(stage:Stage):Void 
-	{
-		sceneManager = new MinigameManager(core);
 		networkManager = new NetworkManager();
-		
-		super.setStage(stage);		
+
+		sceneManager.addScene("serverListScene", new RoomListScene(networkManager));
+		sceneManager.addScene("startMenu", new StartMenuScene());
 	}
+
 
 	override public function update(delta:Float):Void
 	{
