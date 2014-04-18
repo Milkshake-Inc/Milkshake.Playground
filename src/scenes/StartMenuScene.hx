@@ -1,12 +1,13 @@
 package scenes;
 
 import milkshake.game.scene.Scene;
+import milkshake.IGameCore;
 
 class StartMenuScene extends Scene
 {
-	public function new(id:String="playgroundScene")
+	public function new(game:IGameCore)
 	{
-		super(id);
+		super(game, "StartMenuScene");
 	}
 
 

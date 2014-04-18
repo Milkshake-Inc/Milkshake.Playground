@@ -1,16 +1,18 @@
 package minigame;
 
+import milkshake.IGameCore;
 import scenes.StartMenuScene;
 import milkshake.game.scene.SceneManager;
 import milkshake.game.scene.Scene;
 
 class MinigameManager extends SceneManager
-{
-	public function new()
+{	
+	public function new(core:IGameCore)
 	{
 		super();
 
-		var startMenu:Scene = new StartMenuScene("startMenu");
+		var startMenu:Scene = new StartMenuScene(core);
+		
 		addScene(startMenu.id, startMenu);
 	}
 }
