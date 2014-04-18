@@ -7,11 +7,11 @@ import milkshake.game.scene.Scene;
 
 class MinigameManager extends SceneManager
 {	
-	public function new(core:IGameCore)
+	public function new()
 	{
 		super();
 
-		var startMenu:Scene = new StartMenuScene(core);
+		var startMenu:Scene = new StartMenuScene();
 		
 		addScene(startMenu.id, startMenu);
 	}
