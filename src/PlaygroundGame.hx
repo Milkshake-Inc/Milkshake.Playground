@@ -2,6 +2,7 @@ package ;
 
 import minigame.MinigameManager;
 import milkshake.game.MilkshakeGame;
+import pixi.Stage;
 
 class PlaygroundGame extends MilkshakeGame
 {
@@ -11,8 +12,17 @@ class PlaygroundGame extends MilkshakeGame
 	{
 		super();
 
-		sceneManager = new MinigameManager();
+		
+	}
+	
+	override public function setStage(stage:Stage):Void 
+	{
+		sceneManager = new MinigameManager(core);
 		networkManager = new NetworkManager();
+		
+		super.setStage(stage);
+		
+		
 	}
 
 

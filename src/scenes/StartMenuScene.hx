@@ -5,9 +5,9 @@ import milkshake.IGameCore;
 
 class StartMenuScene extends Scene
 {
-	public function new()
+	public function new(core:IGameCore)
 	{
-		super("StartMenuScene");
+		super(core, "StartMenuScene");
 	}
 
 
