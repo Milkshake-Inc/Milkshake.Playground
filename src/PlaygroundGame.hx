@@ -2,6 +2,7 @@ package ;
 
 import minigame.MinigameManager;
 import milkshake.game.MilkshakeGame;
+import network.NetworkManager;
 
 class PlaygroundGame extends MilkshakeGame
 {

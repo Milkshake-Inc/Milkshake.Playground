@@ -5,4 +5,5 @@
 -cp ../src
 
 -lib nape
+-lib nodejs
 -js ../bin/game.js
