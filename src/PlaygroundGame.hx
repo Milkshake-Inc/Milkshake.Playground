@@ -1,5 +1,6 @@
 package ;
 
+import minigame.MinigameManager;
 import milkshake.game.MilkshakeGame;
 
 class PlaygroundGame extends MilkshakeGame
@@ -7,11 +8,8 @@ class PlaygroundGame extends MilkshakeGame
 	public function new()
 	{
 		super();
-		
-		var scene:PlaygroundScene = new PlaygroundScene();
-		//scene.componentManager.addNode(new SceneScalingComponent());
-		
-		sceneManager.addScene("defaultScene", scene);
+
+		sceneManager = new MinigameManager();
 	}
 	
 	
