@@ -3,4 +3,6 @@
 -cp ../libs/Milkshake/src
 -cp ../libs/Milkshake.Game/src
 -cp ../src
+
+-lib nape
 -js ../bin/game.js
