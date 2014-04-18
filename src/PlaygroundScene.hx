@@ -3,14 +3,29 @@ package ;
 import milkshake.game.scene.Scene;
 import milkshake.core.Sprite;
 import milkshake.core.GameObject;
+import nape.geom.Vec2;
+import nape.phys.Body;
+import nape.phys.BodyType;
+import nape.shape.Polygon;
+import nape.space.Space;
 
 class PlaygroundScene extends Scene
 {
 	private var bunny:Sprite;
-
+	private var space:Space;
+	private var debug:PixiDebug;
+	private var box:Body;
+	
 	public function new(id:String="playgroundScene")
 	{
 		super(id);
+		
+		space = new Space(new Vec2(0, 600));
+		
+		box = new Body(BodyType.DYNAMIC);
+		box.shapes.add(new Polygon(Polygon.box(100, 100)));
+		box.space = space;
+		
 		addBunny();
 	}
 
@@ -20,19 +35,20 @@ class PlaygroundScene extends Scene
 		scene.addNode(bunnyContainer);
 
 		bunny = new Sprite("bunny.png");
-		bunny.pivotX = 80;
-		bunny.pivotY = 80;
-		bunny.x = 250;
-		bunny.y = 250;
-
+		
 		bunnyContainer.addNode(bunny);
 	}
 
 	override public function update(delta:Float)
 	{
+		space.step(1 / 24);
+	
+		
 		super.update(delta);
-		bunny.rotation += 0.05;
-		bunny.scaleX = Math.sin(delta / 400) * 2;
-		bunny.scaleY = Math.cos(delta / 100) * 2;
+		
+		bunny.y = box.position.y;
+		//trace(bunny.y);
+		//bunny.scaleX = Math.sin(delta / 400) * 2;
+		//bunny.scaleY = Math.cos(delta / 100) * 2;
 	}
 }

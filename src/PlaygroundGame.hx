@@ -9,7 +9,7 @@ class PlaygroundGame extends MilkshakeGame
 		super();
 		
 		var scene:PlaygroundScene = new PlaygroundScene();
-		scene.componentManager.addNode(new SceneScalingComponent());
+		//scene.componentManager.addNode(new SceneScalingComponent());
 		
 		sceneManager.addScene("defaultScene", scene);
 	}

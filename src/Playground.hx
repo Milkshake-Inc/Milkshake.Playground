@@ -6,14 +6,19 @@ class Playground
 	function new()
 	{
 		#if js
-		new PlaygroundGame().boot(500, 500);
+		boot();
 		#end
 	}
 	
 	public static function main()
 	{
 		#if cs
-		new PlaygroundGame().boot(500, 500);
+		boot();
 		#end
+	}
+	
+	public static function boot()
+	{
+		new PlaygroundGame().boot(1280, 720);
 	}
 }
