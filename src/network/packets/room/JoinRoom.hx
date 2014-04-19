@@ -6,6 +6,6 @@ package network.packets.room;
  */
 typedef JoinRoom =
 {
-	roomId:String,
+	name:String,
 	password:String
 }

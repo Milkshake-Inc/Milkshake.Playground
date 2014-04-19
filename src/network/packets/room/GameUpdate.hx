@@ -4,7 +4,7 @@ package network.packets.room;
  * ...
  * @author Milkshake-Inc
  */
-typedef PlayerUpdate =
+typedef GameUpdate =
 {
 	players:Array<Player>;
 }

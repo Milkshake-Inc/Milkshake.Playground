@@ -1,9 +1,11 @@
 package scenes.roomlist;
 import milkshake.core.GameObject;
 import milkshake.core.Sprite;
+import milkshake.core.Text;
 import milkshake.game.scene.Scene;
 import network.NetworkManager;
 import network.packets.room.RoomList;
+import pixi.InteractionData;
 
 /**
  * ...
@@ -11,10 +13,6 @@ import network.packets.room.RoomList;
  */
 class RoomListScene extends Scene
 {
-	
-	private var assetDir:String = "/scenes/serverListScene/";
-	
-	private var loadingGameObject:LoadingGameObject;
 	private var roomListGameObject:RoomListGameObject;
 	
 	private var networkManager:NetworkManager;
@@ -23,35 +21,48 @@ class RoomListScene extends Scene
 	{
 		super("RoomListScene");
 		this.networkManager = networkManager;
+		networkManager.onRoomsLoadedCallback = onRoomsLoaded;
 		
-		
-		loadingGameObject = new LoadingGameObject();
-		addNode(loadingGameObject);
+		var text = new Text("Room List");
+		text.x = 400;
+		text.y = 30;
+		addNode(text);
 		
 		roomListGameObject = new RoomListGameObject();
+		roomListGameObject.x = 300;
+		roomListGameObject.y = 100;
 		addNode(roomListGameObject);
-		roomListGameObject.visible = false;
+		
+		var joinRoomButton:Button = new Button(250, 50, "Join Room", 0xA9F5A9, 0x58FA58);
+		joinRoomButton.x = 230;
+		joinRoomButton.y = 600;
+		joinRoomButton.displayObject.click = function(data:InteractionData):Void
+		{
+			networkManager.joinRoom(roomListGameObject.currentRoomSelected.room.name);
+		}
+		addNode(joinRoomButton);
+		
+		var createRoomButton:Button = new Button(250, 50, "Create Room", 0xA9F5A9, 0x58FA58);
+		createRoomButton.x = 580;
+		createRoomButton.y = 600;
+		addNode(createRoomButton);
 		
 		loadRooms();
 	}
 	
 	function loadRooms() 
 	{
-		loadingGameObject.visible = true;
-		networkManager.getRoomList(onRoomsLoaded);
+		networkManager.getRoomList();
 	}
 	
 	function onRoomsLoaded(data:RoomList):Void
 	{
-		loadingGameObject.visible = false;
 		roomListGameObject.setRooms(data);
-		roomListGameObject.visible = true;
 	}
 
 
 	override public function update(delta:Float)
 	{
-		loadingGameObject.update(delta);
 		super.update(delta);
 	}
 	

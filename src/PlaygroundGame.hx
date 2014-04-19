@@ -2,6 +2,7 @@ package ;
 
 import milkshake.game.MilkshakeGame;
 import network.NetworkManager;
+import scenes.lobby.LobbyScene;
 import scenes.roomlist.RoomListScene;
 import scenes.StartMenuScene;
 
@@ -12,9 +13,10 @@ class PlaygroundGame extends MilkshakeGame
 	public function new()
 	{
 		super();
-		networkManager = new NetworkManager();
+		networkManager = new NetworkManager(sceneManager);
 
-		sceneManager.addScene("serverListScene", new RoomListScene(networkManager));
+		sceneManager.addScene("roomListScene", new RoomListScene(networkManager));
+		sceneManager.addScene("lobbyScene", new LobbyScene(networkManager));
 		sceneManager.addScene("startMenu", new StartMenuScene());
 	}
 

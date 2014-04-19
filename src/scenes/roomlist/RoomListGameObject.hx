@@ -1,9 +1,10 @@
 package scenes.roomlist;
 import milkshake.core.GameObject;
+import milkshake.core.Text;
 import network.packets.room.Room;
 import network.packets.room.RoomList;
 import pixi.InteractionData;
-import scenes.roomlist.RoomSprite;
+import scenes.roomlist.RoomItemContainer;
 
 using Lambda;
 
@@ -13,25 +14,23 @@ using Lambda;
  */
 class RoomListGameObject extends GameObject
 {
-	private var ROOM_SPRITE_HEIGHT(default, never):Int = 20;
+	private var ROOM_SPRITE_WIDTH(default, never):Float = 400;
+	private var ROOM_SPRITE_HEIGHT(default, never):Float = 50;
+	private var ROOM_SPRITE_GAP(default, never):Float = 50;
 	
 	private var roomList:Array<Room>;
 	
-	public var currentRoomSelected(default, null):RoomSprite;
+	public var currentRoomSelected(default, null):RoomItemContainer;
+	
+	private var text:Text;
 	
 	public function new() 
 	{
-		super();
+		super("RoomListGameObject");
 	}
 	
 	public function setRooms(data:RoomList) 
 	{
-		//remove old roomButtons
-		for (node in nodes)
-		{
-			removeNode(node);
-		}
-		
 		roomList = data.rooms;
 		updateList();
 	}
@@ -40,25 +39,28 @@ class RoomListGameObject extends GameObject
 	{
 		for (room in roomList)
 		{
-			var roomSprite = new RoomSprite(room);
-			var index = roomList.indexOf(room);
-			addNode(roomSprite);
-			roomSprite.y = ROOM_SPRITE_HEIGHT * index;
 			
-			roomSprite.displayObject.mouseup = onRoomClicked;
+			var node = getNodeById("RoomListItem" + room.name);
+			
+			if (node != null)
+			{
+				var roomItemContainer:RoomItemContainer = cast node;
+				roomItemContainer.playerText.setText(room.currentPlayers + " / " + room.maxPlayers);
+			}
+			else
+			{
+				var roomSprite = new RoomItemContainer(room, ROOM_SPRITE_WIDTH, ROOM_SPRITE_HEIGHT);
+				var index = roomList.indexOf(room);
+				addNode(roomSprite);
+				roomSprite.y = (ROOM_SPRITE_HEIGHT + ROOM_SPRITE_GAP) * index;
+				roomSprite.displayObject.setInteractive(true);
+				roomSprite.displayObject.click = function(data:InteractionData):Void
+				{
+					if(currentRoomSelected != null) currentRoomSelected.selected = false;
+					currentRoomSelected = roomSprite;
+					currentRoomSelected.selected = true;
+				};
+			}
 		}
 	}
-	
-	private function onRoomClicked(data:InteractionData):Void
-	{
-		var roomSprite:RoomSprite = cast(data.target, RoomSprite);
-		roomSprite.selected = true;
-		currentRoomSelected = roomSprite;
-	}
-	
-	override public function update(deltaTime:Float):Void 
-	{
-		super.update(deltaTime);
-	}
-	
 }
