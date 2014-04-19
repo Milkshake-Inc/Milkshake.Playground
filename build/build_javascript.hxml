@@ -4,5 +4,6 @@
 -cp libs/Milkshake.Game/src
 -cp src
 -lib nape
+-lib bezier
 -lib nodejs
 -js bin/game.js

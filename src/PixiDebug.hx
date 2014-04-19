@@ -1,5 +1,6 @@
 package ;
 import milkshake.core.GameObject;
+import nape.constraint.LineJoint;
 import nape.shape.Circle;
 import nape.shape.Polygon;
 import nape.space.Space;
@@ -40,6 +41,17 @@ class PixiDebugRenderer extends Debug
 	
 		for (body in space.bodies)
 		{
+			for (constraint in body.constraints)
+			{
+				if (Std.is(constraint, LineJoint))
+				{
+					var lineJoint:LineJoint = cast constraint;
+					
+					graphics.moveTo(lineJoint.body1.worldCOM.x + lineJoint.anchor1.x, lineJoint.body1.worldCOM.y + lineJoint.anchor1.y);
+					graphics.lineTo(lineJoint.body2.worldCOM.x + lineJoint.anchor2.x, lineJoint.body2.worldCOM.y + lineJoint.anchor2.y);					
+				}
+			}			
+			
 			for (shape in body.shapes)
 			{
 				if (Std.is(shape, Polygon))
