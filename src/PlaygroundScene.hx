@@ -1,5 +1,8 @@
 package ;
 
+import entities.Terrain;
+import entities.Tractor;
+import helpers.MathHelper;
 import milkshake.game.scene.Scene;
 import milkshake.core.Sprite;
 import milkshake.core.GameObject;
@@ -17,70 +20,20 @@ import nape.shape.Polygon;
 import nape.shape.Shape;
 import nape.space.Space;
 
-class Tractor extends Sprite
-{
-	public var body(default, null):Body;
-	public var backWheel(default, null):Body;
-	public var frontWheel(default, null):Body;
-	
-	public function new(space:Space)
-	{
-		super("tractor.png");
-		
-		var ignoreGroup = new InteractionGroup(true);
-		
-		body = new Body(BodyType.DYNAMIC, new Vec2(1280 / 2, 720 / 2));
-		body.shapes.add(new Polygon(Polygon.box(300, 200)));
-		body.group = ignoreGroup;
-		
-		backWheel = new Body(BodyType.DYNAMIC);
-		backWheel.shapes.add(new Circle(100));
-		backWheel.group = ignoreGroup;
-		
-		frontWheel = new Body(BodyType.DYNAMIC);
-		frontWheel.shapes.add(new Circle(80));
-		frontWheel.group = ignoreGroup;
-		
-		body.space = space;
-		backWheel.space = space;
-		frontWheel.space = space;
-		
-		new PivotJoint(body, backWheel, new Vec2(-185, 75), new Vec2()).space = space;
-		new PivotJoint(body, frontWheel, new Vec2(165, 75), new Vec2()).space = space;
-		
-
-	}
-	
-	override public function update(deltaTime:Float):Void 
-	{
-		x = body.position.x;
-		y = body.position.y;
-		rotation = body.rotation;
-		
-		
-		super.update(deltaTime);
-	}
-}
 
 class PlaygroundScene extends Scene
 {
 	private var bunny:Sprite;
 	private var space:Space;
 	private var debug:PixiDebug;
-	private var box:Body;
 	var tractor:Tractor;
 	
 	public function new(core:IGameCore, id:String="playgroundScene")
 	{
 		super(core, id);
 		 
-		space = new Space(new Vec2(0, 600));
+		space = new Space(new Vec2(0, 300));
 		
-		box = new Body(BodyType.STATIC);
-		box.position.x = 1280 / 2;
-		box.position.y = 720;
-		box.shapes.add(new Polygon(Polygon.box(10000, 100)));
-		box.space = space;
 		
 		addBunny();
 		
@@ -94,13 +47,23 @@ class PlaygroundScene extends Scene
 		debug = new PixiDebug();
 		addNode(debug);
 		
+		core.input.addKeyDownHandler(KeyboardCode.RIGHT, function()
+		{
+			tractor.backWheel.angularVel += 1;
+			tractor.backWheel.torque = 5;
+			tractor.frontWheel.angularVel += 0.5;
+			
+			tractor.body.angularVel += 0.05;
+		});
+		core.input.addKeyDownHandler(KeyboardCode.LEFT, function()
+		{
+			tractor.backWheel.angularVel -= 1;
+			tractor.body.angularVel -= 0.1;
+			//tractor.trailor.angularVel += 1;
+		});
 		
 		
-		core.input.addKeyDownHandler(KeyboardCode.RIGHT, function() { tractor.backWheel.angularVel += 1; } );
-		core.input.addKeyDownHandler(KeyboardCode.LEFT, function() { tractor.backWheel.angularVel -= 1; } );
-		
-		core.input.addKeyDownHandler(KeyboardCode.A, function() { tractor.backWheel.velocity.y = -100; } );
-		core.input.addKeyDownHandler(KeyboardCode.D, function() { tractor.frontWheel.velocity.y = -100; } );
+		addNode(new Terrain(space));
 		
 	}
 
@@ -110,20 +73,38 @@ class PlaygroundScene extends Scene
 		scene.addNode(bunnyContainer);
 
 		bunny = new Sprite("bunny.png");
-		
 		bunnyContainer.addNode(bunny);
 		
 		
 	}
 
+	public function lerp( amount:Float , start:Float, end:Float ):Float 
+    {
+        if ( start == end ) 
+        {
+            return start ;
+        }
+        return ( ( 1 - amount ) * start ) + ( amount * end ) ;
+    };
+	
 	override public function update(delta:Float)
 	{
 		space.step(1 / 24);
-	
+		//tractor.body.velocity.y = -100;
 		debug.drawSpace(space);
 		super.update(delta);
+		//tractor.update(delta);
 		
-		tractor.update(delta);
+		this.x = -(tractor.x * scaleX) + (1024 / 2) ;
+		this.y = -(tractor.y * scaleX)	 + (768 / 2);
+		
+		var scaleValue = (1 - (Math.abs(tractor.body.velocity.x) / 1000));
+		
+		tractor.body.angularVel *= 0.9;
+		
+		tractor.backWheel.angularVel = MathHelper.clamp(tractor.backWheel.angularVel, -100, 100);
+		
+		scaleX = scaleY = lerp(0.005, scaleX, Math.max(Math.min(scaleValue, 1), 0.5));
 		//trace(bunny.y);
 		//bunny.scaleX = Math.sin(delta / 400) * 2;
 		//bunny.scaleY = Math.cos(delta / 100) * 2;
