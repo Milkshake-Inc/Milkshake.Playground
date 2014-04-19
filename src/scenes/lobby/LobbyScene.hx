@@ -2,7 +2,8 @@ package scenes.lobby;
 import milkshake.core.Text;
 import milkshake.game.scene.Scene;
 import milkshake.game.scene.SceneManager;
-import network.NetworkManager;
+import milkshake.IGameCore;
+import network.MilkshakeNetworkManager;
 import network.packets.room.Room;
 import pixi.InteractionData;
 import scenes.roomlist.Button;
@@ -18,9 +19,9 @@ class LobbyScene extends Scene
 	
 	private var currentRoom:Room;
 
-	public function new(networkManager:NetworkManager) 
+	public function new(core:IGameCore, networkManager:MilkshakeNetworkManager) 
 	{
-		super("LobbyScene");
+		super(core, "LobbyScene");
 		
 		lobbyText = new Text("");
 		lobbyText.x = 300;
@@ -32,7 +33,7 @@ class LobbyScene extends Scene
 		quitRoomButton.y = 600;
 		quitRoomButton.displayObject.click = function(data:InteractionData):Void
 		{
-			networkManager.leaveRoom();
+			networkManager.roomHandler.leaveRoom();
 		}
 		addNode(quitRoomButton);
 	}

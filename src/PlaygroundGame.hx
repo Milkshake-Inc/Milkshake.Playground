@@ -1,23 +1,23 @@
 package ;
 
 import milkshake.game.MilkshakeGame;
-import network.NetworkManager;
+import network.MilkshakeNetworkManager;
 import scenes.lobby.LobbyScene;
 import scenes.roomlist.RoomListScene;
 import scenes.StartMenuScene;
 
 class PlaygroundGame extends MilkshakeGame
 {
-	public var networkManager:NetworkManager;
+	public var networkManager:MilkshakeNetworkManager;
 
 	public function new()
 	{
 		super();
-		networkManager = new NetworkManager(sceneManager);
+		networkManager = new MilkshakeNetworkManager(sceneManager);
 
-		sceneManager.addScene("roomListScene", new RoomListScene(networkManager));
-		sceneManager.addScene("lobbyScene", new LobbyScene(networkManager));
-		sceneManager.addScene("startMenu", new StartMenuScene());
+		sceneManager.addScene("roomListScene", new RoomListScene(core, networkManager));
+		sceneManager.addScene("lobbyScene", new LobbyScene(core, networkManager));
+		sceneManager.addScene("startMenu", new StartMenuScene(core));
 	}
 
 
