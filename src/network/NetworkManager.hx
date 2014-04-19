@@ -8,6 +8,7 @@ import network.packets.room.CreateRoom;
 import network.packets.room.GameUpdate;
 import network.packets.room.Room;
 import network.packets.room.RoomList;
+import network.packets.room.GameUpdate;
 import network.packets.room.JoinRoom;
 import scenes.lobby.LobbyScene;
 

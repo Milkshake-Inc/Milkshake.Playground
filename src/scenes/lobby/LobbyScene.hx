@@ -20,7 +20,7 @@ class LobbyScene extends Scene
 
 	public function new(networkManager:NetworkManager) 
 	{
-		super("LobbyScene");
+		super(game, "LobbyScene");
 		
 		lobbyText = new Text("");
 		lobbyText.x = 300;

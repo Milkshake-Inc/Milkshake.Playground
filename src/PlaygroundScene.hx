@@ -27,7 +27,7 @@ class PlaygroundScene extends Scene
 	private var space:Space;
 	private var debug:PixiDebug;
 	var tractor:Tractor;
-	
+	var terrain:Terrain;
 	public function new(core:IGameCore, id:String="playgroundScene")
 	{
 		super(core, id);
@@ -63,7 +63,7 @@ class PlaygroundScene extends Scene
 		});
 		
 		
-		addNode(new Terrain(space));
+		addNode(terrain = new Terrain(space));
 		
 	}
 
@@ -91,7 +91,8 @@ class PlaygroundScene extends Scene
 	{
 		space.step(1 / 24);
 		//tractor.body.velocity.y = -100;
-		debug.drawSpace(space);
+		debug.pixiDebug.clear();
+		debug.pixiDebug.drawBody(terrain.body);
 		super.update(delta);
 		//tractor.update(delta);
 		

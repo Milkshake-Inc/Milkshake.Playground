@@ -6,5 +6,5 @@ package network.packets.room;
  */
 typedef GameUpdate =
 {
-	players:Array<Player>;
+	players:Array<Player>
 }

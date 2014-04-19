@@ -3,6 +3,7 @@ import milkshake.core.GameObject;
 import milkshake.core.Sprite;
 import milkshake.core.Text;
 import milkshake.game.scene.Scene;
+import milkshake.IGameCore;
 import network.NetworkManager;
 import network.packets.room.RoomList;
 import pixi.InteractionData;
@@ -17,9 +18,9 @@ class RoomListScene extends Scene
 	
 	private var networkManager:NetworkManager;
 
-	public function new(networkManager:NetworkManager)
+	public function new(core:IGameCore, networkManager:NetworkManager)
 	{
-		super("RoomListScene");
+		super(core, "RoomListScene");
 		this.networkManager = networkManager;
 		networkManager.onRoomsLoadedCallback = onRoomsLoaded;
 		
