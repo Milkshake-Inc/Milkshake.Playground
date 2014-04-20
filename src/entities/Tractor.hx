@@ -63,12 +63,13 @@ class Tractor extends Sprite
 	var ignoreGroup:InteractionGroup;
 	public var trailor:Body;
 	
-	public function new(space:Space)
+	public function new(space:Space, tractorIgnoreGroup:InteractionGroup)
 	{
 		super("pimpmobile/tractor_back.png");
 		this.space = space;
 		
 		var ignoreGroup = new InteractionGroup(true);
+		ignoreGroup.group = tractorIgnoreGroup;
 		
 		body = new Body(BodyType.DYNAMIC, new Vec2(600, 200));
 		body.shapes.add(new Polygon(Polygon.rect(-60, 0, 120, 70)));

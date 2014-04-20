@@ -4,7 +4,7 @@ import milkshake.game.MilkshakeGame;
 import network.MilkshakeNetworkManager;
 import scenes.lobby.LobbyScene;
 import scenes.roomlist.RoomListScene;
-import scenes.StartMenuScene;
+import scenes.startmenu.StartMenuScene;
 
 class PlaygroundGame extends MilkshakeGame
 {
@@ -22,12 +22,12 @@ class PlaygroundGame extends MilkshakeGame
 		
 		networkManager = new MilkshakeNetworkManager(sceneManager);
 
+		sceneManager.addScene("startMenu", new StartMenuScene(core, sceneManager));
 		sceneManager.addScene("roomListScene", new RoomListScene(core, networkManager));
 		sceneManager.addScene("lobbyScene", new LobbyScene(core, networkManager));
-		sceneManager.addScene("startMenu", new StartMenuScene(core));
-		sceneManager.addScene("game", new PlaygroundScene(core));
+		sceneManager.addScene("game", new GameScene(core, sceneManager, networkManager));
 		
-		sceneManager.changeScene("game");
+		sceneManager.changeScene("startMenu");
 	}
 
 

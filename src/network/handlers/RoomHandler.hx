@@ -1,5 +1,6 @@
 package network.handlers;
 import js.node.SocketIo.SocketNamespace;
+import milkshake.game.network.AbstractHandler;
 import milkshake.game.scene.SceneManager;
 import network.packets.Player;
 import network.packets.room.CreateRoom;
@@ -33,7 +34,7 @@ class RoomHandler extends AbstractHandler
 		socket.on("leftRoom", function( data:Dynamic ):Void
 		{
 			currentRoom = null;
-			sceneManager.changeScene("roomListScene");
+			sceneManager.changeScene("startMenu");
 		});
 		
 		socket.on("playerJoinedRoom", function(data:Player):Void

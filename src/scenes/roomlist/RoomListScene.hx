@@ -1,10 +1,7 @@
 package scenes.roomlist;
-import milkshake.core.GameObject;
-import milkshake.core.Sprite;
 import milkshake.core.Text;
 import milkshake.game.scene.Scene;
-import milkshake.IGameCore;
-import network.NetworkManager;
+import milkshake.game.ui.component.Button;
 import milkshake.IGameCore;
 import network.handlers.RoomHandler;
 import network.MilkshakeNetworkManager;
@@ -20,14 +17,12 @@ class RoomListScene extends Scene
 	private var roomListGameObject:RoomListGameObject;
 	
 	private var roomHandler:RoomHandler;
-	private var networkManager:MilkshakeNetworkManager;
-	
 
 	public function new(game:IGameCore, networkManager:MilkshakeNetworkManager)
 	{
 		super(game, "RoomListScene");
-		this.networkManager = networkManager;
-		networkManager.onRoomsLoadedCallback = onRoomsLoaded;
+		roomHandler = networkManager.roomHandler;
+		roomHandler.onRoomsLoadedCallback = onRoomsLoaded;
 		
 		var text = new Text("Room List");
 		text.x = 400;

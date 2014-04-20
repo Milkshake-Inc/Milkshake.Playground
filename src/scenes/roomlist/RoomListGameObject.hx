@@ -39,7 +39,6 @@ class RoomListGameObject extends GameObject
 	{
 		for (room in roomList)
 		{
-			
 			var node:RoomItemContainer = getNodeById("RoomListItem" + room.name);
 			
 			if (node != null) node.playerText.setText(room.currentPlayers + " / " + room.maxPlayers);

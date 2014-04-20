@@ -6,7 +6,7 @@ import milkshake.IGameCore;
 import network.MilkshakeNetworkManager;
 import network.packets.room.Room;
 import pixi.InteractionData;
-import scenes.roomlist.Button;
+import milkshake.game.ui.component.Button;
 
 class LobbyScene extends Scene
 {	

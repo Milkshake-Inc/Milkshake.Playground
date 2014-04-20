@@ -2,6 +2,6 @@ package network.packets;
 
 typedef Player = {
 	id: String,
-	x : String,
-	y : String
+	x : Float,
+	y : Float
 }

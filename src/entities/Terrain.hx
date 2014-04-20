@@ -1,7 +1,5 @@
 package entities;
 
-import bezier.Bezier;
-import deep.math.Point;
 import helpers.CatmullRom;
 import milkshake.core.GameObject;
 import nape.geom.GeomPoly;
@@ -65,7 +63,6 @@ class Terrain extends GameObject
 		
 		for (geom in geomList)
 		{
-			
 			body.shapes.add(new Polygon(geom));
 			trace("add");
 		}
