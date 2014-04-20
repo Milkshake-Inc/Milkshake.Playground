@@ -40,13 +40,9 @@ class RoomListGameObject extends GameObject
 		for (room in roomList)
 		{
 			
-			var node = getNodeById("RoomListItem" + room.name);
+			var node:RoomItemContainer = getNodeById("RoomListItem" + room.name);
 			
-			if (node != null)
-			{
-				var roomItemContainer:RoomItemContainer = cast node;
-				roomItemContainer.playerText.setText(room.currentPlayers + " / " + room.maxPlayers);
-			}
+			if (node != null) node.playerText.setText(room.currentPlayers + " / " + room.maxPlayers);
 			else
 			{
 				var roomSprite = new RoomItemContainer(room, ROOM_SPRITE_WIDTH, ROOM_SPRITE_HEIGHT);
