@@ -13,14 +13,14 @@ class PlaygroundGame extends MilkshakeGame
 	public function new()
 	{
 		super();
-		networkManager = new NetworkManager(sceneManager);
+		networkManager = new MilkshakeNetworkManager(sceneManager);
 	}
 	
 	override public function boot(width:Float, height:Float):Void 
 	{
 		super.boot(width, height);
 		
-		networkManager = new NetworkManager(sceneManager);
+		networkManager = new MilkshakeNetworkManager(sceneManager);
 
 		sceneManager.addScene("roomListScene", new RoomListScene(core, networkManager));
 		sceneManager.addScene("lobbyScene", new LobbyScene(core, networkManager));

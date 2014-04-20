@@ -20,22 +20,14 @@ class RoomListScene extends Scene
 	private var roomListGameObject:RoomListGameObject;
 	
 	private var roomHandler:RoomHandler;
+	private var networkManager:MilkshakeNetworkManager;
+	
 
-<<<<<<< .mine
-	public function new(core:IGameCore, networkManager:NetworkManager)
-=======
 	public function new(game:IGameCore, networkManager:MilkshakeNetworkManager)
->>>>>>> .theirs
 	{
-<<<<<<< .mine
-		super(core, "RoomListScene");
+		super(game, "RoomListScene");
 		this.networkManager = networkManager;
 		networkManager.onRoomsLoadedCallback = onRoomsLoaded;
-=======
-		super(game, "RoomListScene");
-		this.roomHandler = networkManager.roomHandler;
-		roomHandler.onRoomsLoadedCallback = onRoomsLoaded;
->>>>>>> .theirs
 		
 		var text = new Text("Room List");
 		text.x = 400;

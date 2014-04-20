@@ -8,24 +8,14 @@ import network.packets.room.Room;
 import pixi.InteractionData;
 import scenes.roomlist.Button;
 
-/**
- * ...
- * @author Milkshake-Inc
- */
 class LobbyScene extends Scene
-{
-	
-	private var lobbyText:Text;
-	
+{	
+	private var lobbyText:Text;	
 	private var currentRoom:Room;
 
 	public function new(core:IGameCore, networkManager:MilkshakeNetworkManager) 
 	{
-<<<<<<< .mine
-		super(game, "LobbyScene");
-=======
 		super(core, "LobbyScene");
->>>>>>> .theirs
 		
 		lobbyText = new Text("");
 		lobbyText.x = 300;
