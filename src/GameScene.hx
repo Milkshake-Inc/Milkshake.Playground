@@ -59,8 +59,8 @@ class GameScene extends Scene
 		
 		tractor.x = 1280 / 2;
 		tractor.y = 720 / 2;
-		addNode(tractor);
 		
+		addNode(tractor);
 		
 		debug = new PixiDebug();
 		addNode(debug);
@@ -142,7 +142,7 @@ class GameScene extends Scene
 		
 		if (tractor == null)
 		{
-			tractor = new Tractor(space, tractorIgnoreGroup);
+			tractor = new Tractor(space, tractorIgnoreGroup, true);
 			remoteTractors.set(data.id, tractor);
 			addNode(tractor);
 		}

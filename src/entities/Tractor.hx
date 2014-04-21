@@ -61,11 +61,13 @@ class Tractor extends Sprite
 	
 	var space:Space;
 	var ignoreGroup:InteractionGroup;
+	var isRemote:Bool;
 	public var trailor:Body;
 	
-	public function new(space:Space, tractorIgnoreGroup:InteractionGroup)
+	public function new(space:Space, tractorIgnoreGroup:InteractionGroup, isRemote:Bool = false)
 	{
 		super("pimpmobile/tractor_back.png");
+		this.isRemote = isRemote;
 		this.space = space;
 		
 		var ignoreGroup = new InteractionGroup(true);
@@ -90,8 +92,12 @@ class Tractor extends Sprite
 		//new PivotJoint(body, backWheel, new Vec2(-(160 / 2), 30), new Vec2()).space = space;
 		//new PivotJoint(body, frontWheel, new Vec2((90 / 2), 35), new Vec2()).space = space;}
 		
-		new LineJoint(body, backWheel, new Vec2(-60, 45), new Vec2(), new Vec2(0, 5), 1, 5).space = space;
-		new LineJoint(body, frontWheel, new Vec2((90 / 2), 60), new Vec2(), new Vec2(0, 5), 1, 5).space = space;
+		var l:LineJoint = new LineJoint(body, backWheel, new Vec2( -60, 45), new Vec2(), new Vec2(0, 5), 1, 5);
+		l.space = space;
+		l.ignore = true;
+		var l:LineJoint = new LineJoint(body, frontWheel, new Vec2((90 / 2), 60), new Vec2(), new Vec2(0, 5), 1, 5);
+		l.space = space;
+		l.ignore = true;
 		
 		
 		trailor = new Body(BodyType.DYNAMIC);
@@ -99,9 +105,6 @@ class Tractor extends Sprite
 		trailor.shapes.add(new Polygon(Polygon.rect(-130, 0, 10, 55)));
 		trailor.shapes.add(new Polygon(Polygon.rect(60, 0, 10, 55)));
 		trailor.shapes.add(new Polygon(Polygon.rect(-130, 55, 270, 10)));
-		
-		
-		
 		
 		trailor.group = ignoreGroup;
 		
@@ -115,15 +118,16 @@ class Tractor extends Sprite
 		trailorBackWheel.group = ignoreGroup;
 		trailorBackWheel.space = space;
 		
-		new PivotJoint(trailor, trailorBackWheel, new Vec2(-80, 70), new Vec2()).space = space;
-		new PivotJoint(trailor, trailorFrontWheel, new Vec2(60, 70), new Vec2()).space = space;
+		var p:PivotJoint = new PivotJoint(trailor, trailorBackWheel, new Vec2( -80, 70), new Vec2());
+		p.space = space;
+		p.ignore = true;
+		var p:PivotJoint = new PivotJoint(trailor, trailorFrontWheel, new Vec2(60, 70), new Vec2());
+		p.space = space;
+		p.ignore = true;
 		
 		var line = new LineJoint(body, trailor, new Vec2(-150, 100), new Vec2(125, 120), new Vec2( -10, 0), 1, 20);
-	
 		line.space = space;
-		
-		
-		
+		line.ignore = true;
 		
 		trailor.space = space;		
 		trailor.mass = 2;
@@ -147,7 +151,7 @@ class Tractor extends Sprite
 		scene.addNode(new Sheep(space, ignoreGroup));
 		scene.addNode(new Sheep(space, ignoreGroup));
 		scene.addNode(new Sheep(space, ignoreGroup));
-			scene.addNode(new Sheep(space, ignoreGroup));
+		scene.addNode(new Sheep(space, ignoreGroup));
 		scene.addNode(new Sheep(space, ignoreGroup));
 		scene.addNode(new Sheep(space, ignoreGroup));
 		scene.addNode(new Sheep(space, ignoreGroup));
@@ -169,8 +173,11 @@ class Tractor extends Sprite
 	
 	override public function update(deltaTime:Float):Void 
 	{
-		x = body.position.x - 20;
-		y = body.position.y;
+		if (!isRemote)
+		{
+			x = body.position.x - 20;
+			y = body.position.y;
+		}
 		rotation = body.rotation;
 		
 		tractorTop.x = x;
